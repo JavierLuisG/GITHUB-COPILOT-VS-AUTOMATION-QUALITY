@@ -35,12 +35,13 @@ public class CrearCuenta implements Task {
 	@Override
 	public <T extends Actor> void performAs(T actor) {
 		actor.attemptsTo(
-			WaitUntil.the(PaginaPerfil.BOTON_CREAR_PRIMERA_CUENTA, isVisible()),
+			WaitUntil.the(PaginaPerfil.BOTON_CREAR_PRIMERA_CUENTA, isVisible()).forNoMoreThan(10).seconds(),
 			Scroll.to(PaginaPerfil.BOTON_CREAR_PRIMERA_CUENTA),
 			Click.on(PaginaPerfil.BOTON_CREAR_PRIMERA_CUENTA),
+			WaitUntil.the(PaginaCuentas.BOTON_NUEVA_CUENTA, isVisible()).forNoMoreThan(10).seconds(),
 			Click.on(PaginaCuentas.BOTON_NUEVA_CUENTA),
 			Enter.theValue(numeroCuenta).into(PaginaCuentas.CAMPO_NUMERO_CUENTA),
-			SelectFromOptions.byVisibleText(tipoCuenta).from(PaginaCuentas.SELECTOR_TIPO_CUENTA),
+			SelectFromOptions.byValue(tipoCuenta.toUpperCase()).from(PaginaCuentas.SELECTOR_TIPO_CUENTA),
 			Enter.theValue(saldoInicial).into(PaginaCuentas.CAMPO_SALDO_INICIAL),
 			SelectFromOptions.byVisibleText(usuarioTitular).from(PaginaCuentas.SELECTOR_USUARIO_TITULAR),
 			Click.on(PaginaCuentas.BOTON_CREAR_CUENTA)
