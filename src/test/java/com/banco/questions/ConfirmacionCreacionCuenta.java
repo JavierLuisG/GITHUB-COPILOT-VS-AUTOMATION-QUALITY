@@ -2,7 +2,7 @@ package com.banco.questions;
 
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
-import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.serenitybdd.screenplay.questions.page.TheWebPage;
 
 public class ConfirmacionCreacionCuenta implements Question<String> {
 
@@ -12,10 +12,6 @@ public class ConfirmacionCreacionCuenta implements Question<String> {
 
 	@Override
 	public String answeredBy(Actor actor) {
-		return BrowseTheWeb.as(actor)
-			.getDriver()
-			.switchTo()
-			.alert()
-			.getText();
+		return TheWebPage.alertText().answeredBy(actor);
 	}
 }
